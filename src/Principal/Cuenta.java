@@ -2,43 +2,39 @@ package Principal;
 
 public class Cuenta {
 
-	private double saldo = 0;
+	protected double saldo = 0;
 
-	public double consultarSaldo() {
-		return saldo;
+	public String consultarSaldo() {
+		return "Cuenta: Saldo: " + saldo;
 	}
 
 	public void depositar(double deposito) {
 		if (deposito < 0)
-			System.out.println("El deposito es invalido");
+			System.out.println("Valor de deposito Negativo");
 		else
 			saldo = saldo + deposito;
 	}
 
-	public void Extraer(double extraccion) {
+	public void Extraer(double extraccion) throws RuntimeException {
 
-		if (extraccion < 0) {
-			System.out.println("El valor a extraer no puede ser negativo.");
-			return;
-		}
+		if (extraccion < 0)
+			throw new RuntimeException("Valor de Saldo Negativo");
 
 		if (saldo >= extraccion)
 			saldo = saldo - extraccion;
 		else
-			System.out.println("Saldo Insuficiente.");
+			throw new RuntimeException("El saldo es insuficiente.");
 	}
 
 	public void transferir(double saldoATransferir, Cuenta cuentaDestino) {
-		if (saldoATransferir > 0) {
-			if(this.saldo>= saldoATransferir)
-			{
-				this.Extraer(saldoATransferir);
-				cuentaDestino.depositar(saldoATransferir);
-			}
-			else
-				System.out.println("Saldo insuficiente.");
-		} else
-			System.out.println("Saldo a transferir incorrecto. No puede ser negativo.");
+
+		try {
+			this.Extraer(saldoATransferir);
+			cuentaDestino.depositar(saldoATransferir);
+			
+		} catch (RuntimeException e) {
+			System.out.println(e);
+		}
 	}
 
 //	public void setSaldo(int saldo) {
