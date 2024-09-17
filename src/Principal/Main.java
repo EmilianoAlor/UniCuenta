@@ -6,11 +6,15 @@ public class Main {
 
 		// main
 		Cuenta miCuenta = new Cuenta();
-		System.out.println(miCuenta.saldo); // 0
-		miCuenta.saldo += 1000;
-		System.out.println(miCuenta.saldo); // 1000
-		miCuenta.saldo -= 550;
-		System.out.println(miCuenta.saldo); // 450
+		System.out.println(miCuenta.getSaldo()); // 0
+		
+		miCuenta.Depositar(1000);
+		
+		System.out.println(miCuenta.getSaldo()); // 1000
+		
+		miCuenta.Extraer(550);
+		
+		System.out.println(miCuenta.getSaldo()); // 450
 	}
 
 }
